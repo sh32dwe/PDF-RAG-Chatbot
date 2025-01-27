@@ -6,8 +6,6 @@ venv/
 # Environment
 .env
 
-# PDFs (optional - if you don't want to track PDFs)
-*.pdf
 
 # Vector store
 *.faiss
