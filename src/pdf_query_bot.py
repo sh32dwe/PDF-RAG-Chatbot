@@ -98,7 +98,7 @@ class PDFQueryBot:
 
 def main():
     # Example usage
-    pdf_path = '/content/drive/MyDrive/CS06 SoS POA.pdf'
+    pdf_path = os.path.join('examples', 'sample.pdf')
     bot = PDFQueryBot(pdf_path)
 
     while True:
