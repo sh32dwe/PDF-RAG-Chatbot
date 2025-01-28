@@ -8,6 +8,8 @@ from langchain.vectorstores import FAISS
 from langchain.document_loaders import PyPDFLoader
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
+from langchain_huggingface import HuggingFacePipeline 
+
 
 class PDFQueryBot:
     def __init__(self, pdf_path, model_name="meta-llama/Llama-2-7b-chat-hf"):
@@ -42,10 +44,10 @@ class PDFQueryBot:
         self.vectorstore = FAISS.from_documents(self.splits, self.embeddings)
 
         # Initialize Hugging Face Pipeline
-        tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=hf_token, truncation=True)
+        tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token, truncation=True)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            use_auth_token=hf_token,
+            token=hf_token,
             torch_dtype=torch.float16,
             device_map="auto"
         )
