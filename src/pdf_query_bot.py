@@ -3,18 +3,17 @@ import torch
 from dotenv import load_dotenv
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain_huggingface import HuggingFacePipeline 
 
-
 class PDFQueryBot:
-    def __init__(self, pdf_path, model_name="meta-llama/Llama-2-7b-chat-hf"):
+    def __init__(self, pdf_path, model_name="gpt2"):  # Use a smaller model by default
         """
-        Initialize the PDF Query Bot with a PDF and Llama-2 model.
+        Initialize the PDF Query Bot with a PDF and a Hugging Face model.
 
         Args:
             pdf_path (str): Path to the PDF file
@@ -101,6 +100,9 @@ class PDFQueryBot:
 def main():
     # Example usage
     pdf_path = os.path.join('examples', 'sample.pdf')
+    if not os.path.exists(pdf_path):
+        raise FileNotFoundError(f"The file {pdf_path} does not exist.")
+
     bot = PDFQueryBot(pdf_path)
 
     while True:
